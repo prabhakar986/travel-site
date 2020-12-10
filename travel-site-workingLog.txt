@@ -1,0 +1,195 @@
+* note: after any change in webpack config we have to run "npm run dev"
+* note: if package is development dependent only then it is followed by --save-dev
+ 
+1. take the sample-site and name accordingly
+2. make new repo on github with same name
+3. follow git commands to push the folder to github
+4. "npm init -y" to create package.json file (this will keep track of packages)
+5. "npm install normalize.css"
+    
+    //note: if any time node_modules folder get deleted then we just have to do "npm install"-
+  
+6. now create scripts(folder) in assets & within the scripts folder create App.js(file)
+
+7. put alert test in App.js as below and save
+alert("test")
+
+8. "npm install webpack webpack-cli --save-dev"
+
+9. after installing webpack create a new file in the root with the name webpack.config.js 
+
+10. in webpack file make a entry for App.js as
+
+module.exports = {
+    entry: './app/assets/scripts/App.js'
+}
+
+11. add below in the scripts object in the package.json file
+
+"dev": "webpack",
+
+12. save both "webpack.config" & "package.json" file and run "npm run dev" from command line 
+    ..and check if dist folder is created with main.js file within. 
+    
+    //everything shud working fine without any error till here-
+
+    //note: from now on "npm run dev" is the app running command to run the app through webpack-
+
+     //webpackChange1: mode psition has changed
+13. to change the name of the "main.js" folder to "bundled.js" and location from the dist 
+    to within the app(folder)
+     
+           //delete the dist folder and do following code as below in the webpack.config.js---
+    
+const path = require('path')
+module.exports = {
+    mode: "development",             
+
+    entry: './app/assets/scripts/App.js',
+    output: {
+        path:path.resolve(__dirname, "app"),
+        filename: "bundled.js"
+    }
+
+}
+
+
+14. run "npm run dev" to check for any error and look for "bundled.js" created or not in the app folder
+
+15. now create <script> tag just above the closing </body> tag as given below to load bundles.js through index.html
+
+<script src="bundled.js"></script>
+
+16. run "npm run dev" and load index.html in browser to see if "test" alert pop-up in the browser.
+
+                      //everything shud working fine without any error till here
+                      //now can push to github
+
+17. now do this to continue running npm
+
+module.exports = {
+    mode: "development",
+
+    entry: './app/assets/scripts/App.js',
+    output: {
+        path:path.resolve(__dirname, "app"),
+        filename: "bundled.js"
+    },
+    watch: true
+
+}
+
+               //css setup for web pack starts here
+
+18. now create a folder name "style" and create a file name "style.css" in it
+
+19. for a test write this in style.css
+
+body{
+    color: orange;
+}
+
+20. now import style.css in App.js as //because webpack only understands .js files and App.js is the main file
+                                      // through which webpack starts bundelling
+import '../styles/styles.css'
+
+alert("test")
+
+21. but it still wont load because it needs following packages stop npm and run this
+npm install css-loader style-loader --save-dev
+
+22. to leverage this packages set up webpack.config as
+
+const path = require('path')
+
+module.exports = {
+    mode: "development",
+
+    entry: './app/assets/scripts/App.js',
+    output: {
+        path:path.resolve(__dirname, "app"),
+        filename: "bundled.js"
+    },
+    watch: true,
+
+    module: {
+        rules: [
+            {
+                test: /\.css$/i,
+                use: ['style-loader','css-loader']
+            }
+        ]
+    }
+
+}
+
+23. now run "npm install dev" //note: now body text will be orange in the browser, 
+                              //can double check by changing body color
+
+
+                   --// start adding post-css //--
+24. run "npm install postcss-loader --save-dev" and change the "module" in webpack.config as 
+const path = require('path')
+
+const postCSSPlugins = [
+    kkkkkk
+]
+
+module.exports = {
+    mode: "development",
+
+    entry: './app/assets/scripts/App.js',
+    output: {
+        path:path.resolve(__dirname, "app"),
+        filename: "bundled.js"
+    },
+    watch: true,
+
+    module: {
+        rules: [
+            {
+                test: /\.css$/i,
+                use: ['style-loader', 'css-loader', {loader: "postcss-loader", options: {postcssOptions:{plugins: postCSSPlugins}}}]
+            }
+        ]
+    }
+
+}
+
+           //webpackChange2: in module extra "postcssOptions" has to be add
+25. then run "npm install postcss-simple-vars postcss-nested autoprefixer --save-dev" plugins and leverage them in 
+    webpack.config as
+const path = require('path')
+
+const postCSSPlugins = [
+    require('postcss-simple-vars'),
+    require('postcss-nested'),
+    require('autoprefixer')
+]
+
+module.exports = {
+    mode: "development",
+
+    entry: './app/assets/scripts/App.js',
+    output: {
+        path:path.resolve(__dirname, "app"),
+        filename: "bundled.js"
+    },
+    watch: true,
+
+    module: {
+        rules: [
+            {
+                test: /\.css$/i,
+                use: ['style-loader', 'css-loader', {loader: "postcss-loader", options: {postcssOptions:{plugins: postCSSPlugins}}}]
+            }
+        ]
+    }
+
+}
+
+
+26. then save and test it by change in "style.css" as
+
+   //still have write 25 26 and 27 in the morning its giving an error
+
