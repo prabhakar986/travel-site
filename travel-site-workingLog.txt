@@ -191,5 +191,108 @@ module.exports = {
 
 26. then save and test it by change in "style.css" as
 
-   //still have write 25 26 and 27 in the morning its giving an error
+    //Hello everyone,
 
+        By default, the css-loader will attempt to handle any images we reference in our CSS (e.g. background images, etc...). 
+        While this is great in certain situations, for our usage in this course we want to disable this and we'll manage our 
+        image files manually. With this in mind, when you list 'css-loader' in your webpack.config.js file you'll want to add 
+        an option to the end of it like this 'css-loader?url=false' instead.
+
+        For a complete reference, you can also simply use the webpack.config.js file I've added as a resource for this text lesson.
+
+        Thanks!
+        Brad
+
+
+/////////////////////////////////// here start CSS and its architecture //////////////////////////////////////////////////
+
+1. npm install postcss-import --save-dev and make changes in webpack.config as //to make styles.css import other modules 
+                                                                                 of css and send it to app.js
+                                                                               //Note: postcss.import is not necessary if project 
+                                                                                 is very small just write the css code in style.css 
+const path = require('path')
+
+const postCSSPlugins = [
+    require('postcss-import'),
+    require('postcss-simple-vars'),
+    require('postcss-nested'),
+    require('autoprefixer')
+]
+
+module.exports = {
+    mode: "development",
+
+    entry: './app/assets/scripts/App.js',
+    output: {
+        path:path.resolve(__dirname, "app"),
+        filename: "bundled.js"
+    },
+    watch: true,
+
+    module: {
+        rules: [
+            {
+                test: /\.css$/i,
+                use: ['style-loader', 'css-loader?url=false', {loader: "postcss-loader", options: {postcssOptions:{plugins: postCSSPlugins}}}]
+            }
+        ]
+    }
+
+}
+
+
+1. BEM - This is a method to give CLASS NAMEs to the elements in the html page so that css becomes more powerfull. it will 
+eliminate the casacade from the css tool by giving power to the css by hooking on almost any element indipendently 
+that means now there will be left no cascading of properties from parent div to child div ..and we can also controll 
+that cascading by giving same "class names" to the desrired elements. These class names can be designate as Block, 
+Element & Modifier according their pattern type. These patterns can be observed by looking on the design page.
+Block level(.testimonial) class names can be "reused" but elemnent(.testimonial__image, .testimonial__text) level class 
+names will be unique to that html element which is in that block. Modifier(mobile-menu),(btn) can be used to both 
+Block and Element to change its default properties coming from Block or Element class as (mobile-menu--is-open),
+(btn btn--orange btn--large).
+Biggest advantage will be that we can create "grid type column layout" by applying "Single reponsibility" type 
+Block classes and reuse them on the blocks which follow same Grid pattern in the design page.
+Second biggest advantage is that it will make the HTML & CSS relation crystel clear by just reading their class names.
+Which in turn make the maintenance so easy even after long time later. 
+
+2. blockClass__itsElementClass //this is what "__" represents.
+3. blockClass--modifierClass   //this is what "--" represents.
+
+2. postcss allow us to write nested CSS by using & at the place of block class name and write it in the block 
+level class name selector as..
+             //note: & will become .large-hero and out of the block in compiled CSS 
+
+.large-hero {
+    position: relative;
+
+    &__text-content {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+    
+        width: 100%;
+        text-align: center;
+    }
+
+    &__title {
+        font-weight: 300;
+        color: #2f5572;
+        font-size: 4.8rem;
+    }
+
+    &__subtitle {
+        font-weight: 300;
+        color: #2f5572;
+        font-size: 2.9rem;
+    }
+}
+
+3. rem should be used for font-size, padding, margin and max-width values. when we use rem everything is relative to 
+the root of the page and root of the any web page is always an html element. So when we say 1.5rem the browser will 
+take whatever the font size of that top main "html" element is and multiply it with 1.5 ..most web browser wl hv a 
+default font-size on the "main html element" of about the equivalent the 16px. So when we say 1.5 its (1.5 X 16 =) 24px.
+this will scale accordingly to the browser default size or that its set to by the user that may be means if someone 
+zoomed in or out the webpage for personal reasons it will not disturb the layout.
+
+4. for every new block "one new css file" will be created and dont forget to import that css file into the style.css
