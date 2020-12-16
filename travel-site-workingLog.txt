@@ -308,6 +308,7 @@ zoomed in or out the webpage for personal reasons it will not disturb the layout
 
 28. to imlpiment web-pack dev server //change in webpack.config by adding new key as devServer:
     //first do change in package.json by coverting "dev": "webpack", to "dev": "webpack serve", in scripts key
+    //note: always look for webpack website for any new update in webpack.config and its implimentation in other files. 
 
 const path = require('path')
 
@@ -357,3 +358,101 @@ module.exports = {
 
 29. to get the IPv4 address to open in "any device" run ipconfig command in computer's admin command prompt and look 
     for IPv4 address.
+
+/////////////////////////////////// CSS & html coding starts here //////////////////////////////////////////////////
+
+1. to apply mobile-first approach we write mobile code as base-line and for larger screens code will go into 
+   the @media(min-width: 530px){new css for larger screens for the same element}
+
+2. to achieve above efficiently we use mixin package from post css as "npm install postcss-mixins --save-dev"
+
+3. require in the postcss-mixins package in postcssPlugins variable as require('postcss-mixins'),
+
+4. create a new css file _mixins in base folder and write following queries for all media screens as
+/*base line will be for smallest mobile screens*/
+
+
+/*for large mobile screens*/
+@define-mixin atSmall {
+    @media (min-width: 530px) {
+        @mixin-content;
+    }
+}
+
+
+/*for tablet screens or small desktop screens*/
+@define-mixin atMedium {
+    @media (min-width: 800px) {
+        @mixin-content;
+    }
+}
+
+
+/*for desktops screens*/
+@define-mixin atLarge {
+    @media (min-width: 1200px) {
+        @mixin-content;
+    }
+}
+
+5. now use any media query by writing just "@mixins atSmall {}" or "@mixins atLarge {}" in any css file for 
+   any particular element to be resposive.
+
+6. to make the image 'responsive' and 'data-efficient' we depend totally on "images of 3 diffrent size and 3 differet 
+   resolutions for SINGLE IMAGE" and the html. we change the html for a single image <img src="assets/images/hero--smaller.jpg"> 
+   to html of 6 different images as
+
+<picture>
+      <source srcset="assets/images/hero--large.jpg 1920w, assets/images/hero--large-hi-dpi.jpg 3840w" media="(min-width: 1380px)"> <!--for large desktop screens-->
+      <source srcset="assets/images/hero--medium.jpg 1380w, assets/images/hero--medium-hi-dpi.jpg 2760w" media="(min-width: 990px)"> <!--for small desktop screens-->
+      <source srcset="assets/images/hero--small.jpg 990w, assets/images/hero--small-hi-dpi.jpg 1980w" media="(min-width: 640px)"> <!--for tablets and large mobile screens-->
+      <img srcset="assets/images/hero--smaller.jpg 640w, assets/images/hero--smaller-hi-dpi 1280w.jpg" alt="Coastal view"> <!--for small mobile screens-->
+</picture>
+
+7. "page-section" class creating the page section using "padding-top" and "background-color" for sections and wrapper 
+    class creating the 1200px container.
+
+8. always use em instead of rem for text margin as it is relative to the size of the font.
+
+9. using so many modifier classes for a particular group of text style is a best practice and will be very useful if 
+   website is too large consists of around 100 pages then repeating of same style is easy instead of hooking on a single 
+   class for each element to style them.
+
+10. to create column layout create a _row.css for that rows which contain more then one coloumn in design then to 
+    create column put appropriate content in different divs and put classes as row__4, row__8 as 4 represents 4 out 
+    of 12 column to represent 1/3rd space of the container that is of 1200px and 8 reprents the remaining 2/3rd of 
+    that container.  calculate width% of the row__4 and row__8 buy (100/12)*4 and (100/12)*8
+
+11. to tackle float issue use below in mixin and call it in any css class thai is using float as "@mixin clearfix;"
+@define-mixin clearfix {
+    &::after {          /*tackling float problem by adding and clearing an empty content after this*/
+        content: "";
+        clear: both;
+        display: table;
+    }
+}   
+
+12. add modifier class "row--gutters" to add gutters betwwen the columns and access the childrens to create 
+    gutter b/w them as
+
+&--gutters > div {
+        padding-right: 65px;
+    }     
+
+13. also to achieve above we have to put below in global css for all elements
+* {
+    box-sizing: border-box; 
+}
+
+and put overflow: hidden; in wrapper class
+
+14. but we want above changes only for medium size screens so change row__4 to row__medium-4 and put it in the mixin for 
+    medium size screens and do the same for row__8
+
+    //note: after every completion of a section adjust it for mobile screens also
+
+15. to adjust the fine size of columns we can further create "row__medium-4--larger" & "row__medium-8--smaller"
+
+16. pro tip for images which dont take full screen width is just add extra sizes="404px" attribute before srcset to 
+    prevent the browser to download hi-dpi images. thats happening because for not full screen width images browser 
+    assume it to be a full screen width image and downloads the hi-dpi image.

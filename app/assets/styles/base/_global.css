@@ -8,4 +8,14 @@ img {
     height: auto;
 }
 
-/* $mainBlue: #2f5572; */
+
+/*this will resolve the broken layout after add padding and should be aplly for each element by using "*" */
+* {
+    box-sizing: border-box; 
+}
+
+/* applying mainOrange color on all link text */
+a {
+    color: $mainOrange;
+}
+

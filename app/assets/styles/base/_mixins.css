@@ -1,0 +1,34 @@
+/*base line will be for smallest mobile screens*/
+
+
+/*for large mobile screens*/
+@define-mixin atSmall {
+    @media (min-width: 530px) {
+        @mixin-content;
+    }
+}
+
+
+/*for tablet screens or small desktop screens*/
+@define-mixin atMedium {
+    @media (min-width: 800px) {
+        @mixin-content;
+    }
+}
+
+
+/*for desktops screens*/
+@define-mixin atLarge {
+    @media (min-width: 1200px) {
+        @mixin-content;
+    }
+}
+
+
+@define-mixin clearfix {
+    &::after {          /*tackling float problem by adding and clearing an empty content after this*/
+        content: "";
+        clear: both;
+        display: table;
+    }
+}
