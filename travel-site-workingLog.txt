@@ -456,3 +456,6 @@ and put overflow: hidden; in wrapper class
 16. pro tip for images which dont take full screen width is just add extra sizes="404px" attribute before srcset to 
     prevent the browser to download hi-dpi images. thats happening because for not full screen width images browser 
     assume it to be a full screen width image and downloads the hi-dpi image.
+
+17. flex-box comes into play at 2nd ch of testimonials where white bg height is different because of diffrent size of text
+    text content and we want all of them to behave as height as that of a tallest content.  

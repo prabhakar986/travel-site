@@ -1,7 +1,7 @@
-/*base line will be for smallest mobile screens*/
+/* 1.base line will be for smallest mobile screens*/
 
 
-/*for large mobile screens*/
+/* 2.for large mobile screens*/
 @define-mixin atSmall {
     @media (min-width: 530px) {
         @mixin-content;
@@ -9,7 +9,7 @@
 }
 
 
-/*for tablet screens or small desktop screens*/
+/* 3.for tablet screens or small desktop screens*/
 @define-mixin atMedium {
     @media (min-width: 800px) {
         @mixin-content;
@@ -17,9 +17,9 @@
 }
 
 
-/*for desktops screens*/
+/* 4.for desktops screens*/
 @define-mixin atLarge {
-    @media (min-width: 1200px) {
+    @media (min-width: 1010px) {
         @mixin-content;
     }
 }
