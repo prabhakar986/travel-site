@@ -17,7 +17,7 @@
     }
 
     &--gutters-small {
-        margin-right: -45;
+        margin-right: -45px;
     }
 
     &--gutters > div {
@@ -28,7 +28,7 @@
         padding-right: 100px;
     }
 
-    &--gutters-large > div {
+    &--gutters-small > div {
         padding-right: 45px;
     }
 
