@@ -458,4 +458,7 @@ and put overflow: hidden; in wrapper class
     assume it to be a full screen width image and downloads the hi-dpi image.
 
 17. flex-box comes into play at 2nd ch of testimonials where white bg height is different because of diffrent size of text
-    text content and we want all of them to behave as height as that of a tallest content.  
+    text content and we want all of them to behave as height as that of a tallest content.
+
+18. postcss plugin "hexrgba" wl allow postcss to convert hex value to rgba code even if that hex value saved in a variable 
+    do "npm install postcss-hexrgba --save-dev" and upadate the plugon in pluggin variable in webpack config.   
