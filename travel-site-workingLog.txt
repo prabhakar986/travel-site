@@ -468,5 +468,8 @@ npm install lodash  //since it is not dev dependency
 import it in the class as "import throttle from 'lodash/throttle'" and "import debounce from 'lodash/debounce'"
 //note: this chapter is best to understand performance based code writing and reusable class in JS.
 
-//just for info: event-emitter is a package which we can use to interact one js file to other for complex projects
+//just for info: event-emitter is a package which we can use to interact one js file to other for 
+  complex projects
+
+npm install lazysizes  //for lazyloading 
 
