@@ -461,4 +461,10 @@ and put overflow: hidden; in wrapper class
     text content and we want all of them to behave as height as that of a tallest content.
 
 18. postcss plugin "hexrgba" wl allow postcss to convert hex value to rgba code even if that hex value saved in a variable 
-    do "npm install postcss-hexrgba --save-dev" and upadate the plugon in pluggin variable in webpack config.   
+    do "npm install postcss-hexrgba --save-dev" and upadate the plugon in pluggin variable in webpack config. 
+
+@ webpack lodash package is used to call javascript functions only when it is needed
+npm install lodash  //since it is not dev dependency
+import it in the class as "import throttle from 'lodash/throttle'" and "import debounce from 'lodash/debounce'"
+//note: this chapter is best to understand performance based code writing and reusable class in JS.
+
