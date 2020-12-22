@@ -473,3 +473,121 @@ import it in the class as "import throttle from 'lodash/throttle'" and "import d
 
 npm install lazysizes  //for lazyloading 
 
+----------------------------coding done here and build process starts-------------------------------------------------------------
+
+1. create and checkout to new branch named build-process
+
+2. add "build": "webpack", just below the "dev" in package.json
+
+3. now setup the webpack so that it can work for both dev and build command as
+const currentTask = process.env.npm_lifecycle_event
+const path = require('path')
+
+const postCSSPlugins = [
+    require('postcss-import'),
+    require('postcss-mixins'),
+    require('postcss-simple-vars'),
+    require('postcss-nested'),
+    require('postcss-hexrgba'),
+    require('autoprefixer')
+]
+
+let config = {
+
+    entry: './app/assets/scripts/App.js',
+
+    module: {
+        rules: [
+            {
+                test: /\.css$/i,
+                use: ['style-loader', 'css-loader?url=false', {loader: "postcss-loader", options: {postcssOptions:{plugins: postCSSPlugins}}}]
+            }
+        ]
+    } 
+}
+
+if (currentTask == 'dev') {
+
+    config.output = {
+        path:path.resolve(__dirname, "app"),
+        filename: "bundled.js"
+    }
+
+    config.devServer = {
+        /*to auto reload all html files in app folder*/
+        before: function(app, server) {
+            server._watch( './app/**/*.html' )
+        },
+
+        /*to auto reload all CSS and js files in app folder*/
+        contentBase: path.join(__dirname, 'app'),
+
+        hot: true,
+        port: 3000,
+
+        /*to open in any device using ipv4 address(192.168.1.6) with port number (:3000) as 192.168.1.6:3000*/
+        host: '0.0.0.0'
+    }
+
+    config.mode = 'development'
+}
+
+if (currentTask == 'build') {
+    
+    config.output = {
+        path:path.resolve(__dirname, "dist"),
+        filename: "bundled.js"
+    }
+
+    config.mode = 'production'
+}
+
+
+module.exports = config
+
+4. "npm run build" will create new dist folder but only with bundelled.js and seperate modal js file
+
+5. optimization code //new webpack5 method used
+
+
+6. npm install clean-webpack-plugin --save-dev  //to delete previous chunks on each build
+   const {CleanWebpackPlugin} = require('clean-webpack-plugin')
+
+7. //extracting CSS from main.js in a new seperate file 
+    npm install mini-css-extract-plugin --save-dev  //to get css seperate file on each build
+    const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+
+8. npm install cssnano --save-dev //to compress css file //"this setup failed//do it later
+   postCSSPlugins.push(require('cssnano'))
+
+9.  //to create html file
+    first delete the bottom script tag from index.html
+    npm install html-webpack-plugin --save-dev
+    const HtmlWebpackPlugin = require('html-webpack-plugin') //use this for both dev and build tasks
+
+    npm install fs-extra --save-dev //optional: if we hv different html pages other then index.html
+    const fse = require('fs-extra') //"this is current setup"
+    or
+    we can use "static site generator" when html pages are more then 10 
+
+10. //to transfer images automatically in dist file made your own plugin using fse as
+new RunAfterComplile()
+
+class RunAfterComplile {
+    apply(compiler) {
+        compiler.hooks.done.tap('Copy images', function() {
+            fse.copySync('./app/assets/images', './dist/assets/images')
+        })
+    }
+}
+
+
+11. //to make our modern js compatible with old browsers as old style js then use below 3 packages
+    npm install @babel/core @babel/preset-env babel-loader --save-dev
+
+--rename dist folder to docs or any just @2places in present webpack.config  //"docs" is for github deploy purpose--
+
+THIS PROJECT ENDS HERE
+
+
+

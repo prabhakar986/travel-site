@@ -24,9 +24,9 @@
     }
 }
 
-
+/*tackling float problem by adding and clearing an empty content after this*/
 @define-mixin clearfix {
-    &::after {          /*tackling float problem by adding and clearing an empty content after this*/
+    &::after {
         content: "";
         clear: both;
         display: table;
