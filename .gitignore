@@ -1,5 +1,5 @@
 # Numerous always-ignore extensions
-*txt
+*.txt
 *.diff
 *.err
 *.orig
@@ -11,6 +11,7 @@
 *~
 *.sass-cache
 node_modules/
+docs/
 .tmp/
 
 # OS or Editor folders

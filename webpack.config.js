@@ -71,6 +71,7 @@ if (currentTask == 'dev') {
     }
 
     config.mode = 'development'
+    config.devtool = 'eval-source-map'
 }
 
 if (currentTask == 'build') {

@@ -35,14 +35,11 @@
   </header>
 
   <div class="large-hero">
-    <!-- <img src="assets/images/hero--smaller.jpg"> //convert this as below-->
-    <!-- large-hi-dpi, medium-hi-dpi and small-hi-dpi are for high resolution screens 
-        note: resolution and screen size are two diffrent things to handle-->
     <picture>
-      <source srcset="assets/images/hero--large.jpg 1920w, assets/images/hero--large-hi-dpi.jpg 3840w" media="(min-width: 1380px)"> <!--for large desktop screens-->
+      <source srcset="assets/images/hero--large.jpg 1920w, assets/images/hero--large-hi-dpi.jpg 3840w" media="(min-width: 1380px)">  <!--for large desktop screens-->
       <source srcset="assets/images/hero--medium.jpg 1380w, assets/images/hero--medium-hi-dpi.jpg 2760w" media="(min-width: 990px)"> <!--for small desktop screens-->
-      <source srcset="assets/images/hero--small.jpg 990w, assets/images/hero--small-hi-dpi.jpg 1980w" media="(min-width: 640px)"> <!--for tablets and large mobile screens-->
-      <img srcset="assets/images/hero--smaller.jpg 640w, assets/images/hero--smaller-hi-dpi.jpg 1280w.jpg" alt="Coastal view" class="large-hero__image"> <!--for small mobile screens-->
+      <source srcset="assets/images/hero--small.jpg 990w, assets/images/hero--small-hi-dpi.jpg 1980w" media="(min-width: 640px)">    <!--for tablets and large mobile screens-->
+      <img srcset="assets/images/hero--smaller.jpg 640w, assets/images/hero--smaller-hi-dpi.jpg 1280w" alt="Coastal view" class="large-hero__image"> <!--for small mobile screens-->
     </picture>
       <div class="large-hero__text-content">
         <div class="wrapper">
@@ -190,4 +187,3 @@
     
   </footer>
 </body>
-</html>

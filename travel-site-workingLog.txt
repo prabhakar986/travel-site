@@ -587,7 +587,34 @@ class RunAfterComplile {
 
 --rename dist folder to docs or any just @2places in present webpack.config  //"docs" is for github deploy purpose--
 
-THIS PROJECT ENDS HERE
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<-THIS PROJECT ENDS HERE->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+github DEPLOY
+    @the-same-github-repo settings > GitHub Pages > select(master) & roots to docs. then SAVE
+    again go to GitHub Pages and copy the published link
+
+Netlify DEPLOY
+    just add git hub repo in Netlify account and get the published link
+
+    advntg1: as we push master to git hub we can see live changes on our netlify link
+
+    advntg2: to prevent docs file to be seen in public repo of github we can add docs folder in gitignore file
+            Netlify will run and generate build files for it using package.json
+
+    advntg3: AWS Lamda functions     
+    -go to the project on Netlify settings>functions [enter folder name that contains server side js file and SAVE]
+    -goto functions tab and copy a url(link) which runs that folder content.
+    -Netlify sends that folder content code to (AWS)Amazon Web Services to run and execute that code for us.
+REFERENCE to this part of tute if you are going to start any time working on AWS Lamda or use of POSTMAN software etc
 
 
+intigrating REACT
+1. npm install react react-dom //download these 2 packages
 
+2. to leverage add these 2 lines in App.js
+import react from 'react'
+import ReactDOM from 'react-dom'
+
+3. add this empty div anywhere in index.html
+
+npm install @babel/preset-react --save-dev
