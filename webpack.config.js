@@ -25,6 +25,7 @@ class RunAfterComplile {
 let cssConfig = {
     test: /\.css$/i,
     use: ['css-loader?url=false', {loader: "postcss-loader", options: {postcssOptions:{plugins: postCSSPlugins}}}]
+    //use: [{ loader: 'css-loader', options: { url: false, sourceMap: true } }, {loader: "postcss-loader", options: {postcssOptions:{plugins: postCSSPlugins}}}]
 }
 
 let pages = fse.readdirSync('./app').filter(function(file) {
@@ -49,6 +50,7 @@ let config = {
 
 if (currentTask == 'dev') {
     cssConfig.use.unshift('style-loader')
+    
     config.output = {
         path:path.resolve(__dirname, "app"),
         filename: "bundled.js"
@@ -71,7 +73,7 @@ if (currentTask == 'dev') {
     }
 
     config.mode = 'development'
-    
+    config.devtool = 'source-map'
 }
 
 if (currentTask == 'build') {
@@ -87,8 +89,8 @@ if (currentTask == 'build') {
         }
     })
 
-
     cssConfig.use.unshift(MiniCssExtractPlugin.loader)
+    
     //postCSSPlugins.push(require('cssnano'))  //use only this line to compress large css file
     config.output = {
         filename:  '[name].[chunkhash].js',
